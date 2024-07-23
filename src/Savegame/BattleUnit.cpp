@@ -2209,56 +2209,101 @@ bool BattleUnit::postMissionProcedures(SavedGame *geoscape, UnitStats &statsDiff
 
 	s->setWoundRecovery(RNG::generate((healthLoss*0.5),(healthLoss*1.5)));
 
-	if (_expBravery && stats->bravery < caps.bravery)
+	UnitStats minImpr;
+	UnitStats maxImpr;
+
+	bool hasImproved = currentImprovementLimits(geoscape, minImpr, maxImpr);
+
+	auto improveStat = [&](int UnitStats::*mptr){
+		if (maxImpr.*mptr > 0)
+		{
+			stats->*mptr += RNG::generate(minImpr.*mptr, maxImpr.*mptr);
+		}
+	};
+
+	if (maxImpr.bravery > 0)
 	{
 		if (_expBravery > RNG::generate(0,10)) stats->bravery += 10;
 	}
-	if (_expReactions && stats->reactions < caps.reactions)
-	{
-		stats->reactions += improveStat(_expReactions);
-	}
-	if (_expFiring && stats->firing < caps.firing)
-	{
-		stats->firing += improveStat(_expFiring);
-	}
-	if (_expMelee && stats->melee < caps.melee)
-	{
-		stats->melee += improveStat(_expMelee);
-	}
-	if (_expThrowing && stats->throwing < caps.throwing)
-	{
-		stats->throwing += improveStat(_expThrowing);
-	}
-	if (_expPsiSkill && stats->psiSkill < caps.psiSkill)
-	{
-		stats->psiSkill += improveStat(_expPsiSkill);
-	}
-	if (_expPsiStrength && stats->psiStrength < caps.psiStrength)
-	{
-		stats->psiStrength += improveStat(_expPsiStrength);
-	}
+	improveStat(&UnitStats::bravery);
+	improveStat(&UnitStats::firing);
+	improveStat(&UnitStats::melee);
+	improveStat(&UnitStats::throwing);
+	improveStat(&UnitStats::psiSkill);
+	improveStat(&UnitStats::psiStrength);
 
-	bool hasImproved = false;
-	if (_expBravery || _expReactions || _expFiring || _expPsiSkill || _expPsiStrength || _expMelee)
+	if (hasImproved)
 	{
-		hasImproved = true;
 		if (s->getRank() == RANK_ROOKIE)
 			s->promoteRank();
-		int v;
-		v = caps.tu - stats->tu;
-		if (v > 0) stats->tu += RNG::generate(0, v/10 + 2);
-		v = caps.health - stats->health;
-		if (v > 0) stats->health += RNG::generate(0, v/10 + 2);
-		v = caps.strength - stats->strength;
-		if (v > 0) stats->strength += RNG::generate(0, v/10 + 2);
-		v = caps.stamina - stats->stamina;
-		if (v > 0) stats->stamina += RNG::generate(0, v/10 + 2);
+
+		improveStat(&UnitStats::tu);
+		improveStat(&UnitStats::health);
+		improveStat(&UnitStats::strength);
+		improveStat(&UnitStats::stamina);
 	}
 
 	statsDiff += *stats; // add new stats
 
 	return hasImproved;
+}
+
+bool BattleUnit::currentImprovementLimits(SavedGame *geoscape, UnitStats &minImpr, UnitStats &maxImpr)
+{
+	Soldier *s = geoscape->getSoldier(_id);
+	if (s == 0)
+	{
+		return false;
 	}
+
+	UnitStats *stats = s->getCurrentStats();
+	const UnitStats caps = s->getRules()->getStatCaps();
+
+	auto primaryStatValues = [](int exp, int UnitStats::*mptr, const UnitStats& current, const UnitStats& caps, UnitStats& min, UnitStats& max){
+		if (exp && current.*mptr < caps.*mptr)
+		{
+			int minValue, maxValue;
+			improveStatLimits(exp, minValue, maxValue);
+			min.*mptr = minValue;
+			max.*mptr = maxValue;
+		}
+	};
+
+	auto secondaryStatValues = [](int UnitStats::*mptr, const UnitStats& current, const UnitStats& caps, UnitStats& min, UnitStats& max){
+		int v = caps.*mptr - current.*mptr;
+		if (v > 0)
+		{
+			min.*mptr = 0;
+			max.*mptr = v/10 + 2;
+		}
+	};
+
+	if (_expBravery && stats->bravery < caps.bravery)
+	{
+		minImpr.bravery = 0;
+		maxImpr.bravery = 10;
+	}
+
+	primaryStatValues(_expBravery, &UnitStats::bravery, *stats, caps, minImpr, maxImpr);
+	primaryStatValues(_expReactions, &UnitStats::reactions, *stats, caps, minImpr, maxImpr);
+	primaryStatValues(_expFiring, &UnitStats::firing, *stats, caps, minImpr, maxImpr);
+	primaryStatValues(_expMelee, &UnitStats::melee, *stats, caps, minImpr, maxImpr);
+	primaryStatValues(_expThrowing, &UnitStats::throwing, *stats, caps, minImpr, maxImpr);
+	primaryStatValues(_expPsiSkill, &UnitStats::psiSkill, *stats, caps, minImpr, maxImpr);
+	primaryStatValues(_expPsiStrength, &UnitStats::psiStrength, *stats, caps, minImpr, maxImpr);
+
+	bool hasImproved = (_expBravery || _expReactions || _expFiring || _expPsiSkill || _expPsiStrength || _expMelee);
+
+	if (hasImproved)
+	{
+		secondaryStatValues(&UnitStats::tu, *stats, caps, minImpr, maxImpr);
+		secondaryStatValues(&UnitStats::health, *stats, caps, minImpr, maxImpr);
+		secondaryStatValues(&UnitStats::strength, *stats, caps, minImpr, maxImpr);
+		secondaryStatValues(&UnitStats::stamina, *stats, caps, minImpr, maxImpr);
+	}
+
+	return hasImproved;
+}
 
 /**
  * Converts the number of experience to the stat increase.
@@ -2267,11 +2312,19 @@ bool BattleUnit::postMissionProcedures(SavedGame *geoscape, UnitStats &statsDiff
  */
 int BattleUnit::improveStat(int exp) const
 {
-	if      (exp > 10) return RNG::generate(2, 6);
-	else if (exp > 5)  return RNG::generate(1, 4);
-	else if (exp > 2)  return RNG::generate(1, 3);
-	else if (exp > 0)  return RNG::generate(0, 1);
-	else               return 0;
+	int min, max;
+	improveStatLimits(exp, min, max);
+	if (max == 0) return 0;
+	return RNG::generate(min, max);
+}
+
+void BattleUnit::improveStatLimits(int exp, int& min, int& max)
+{
+	if      (exp > 10) { min = 2; max = 6; }
+	else if (exp > 5)  { min = 1; max = 4; }
+	else if (exp > 2)  { min = 1; max = 3; }
+	else if (exp > 0)  { min = 0; max = 1; }
+	else			   { min = 0; max = 0; }
 }
 
 /**

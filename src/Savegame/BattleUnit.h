@@ -88,6 +88,7 @@ private:
 	bool _cacheInvalid;
 	int _expBravery, _expReactions, _expFiring, _expThrowing, _expPsiSkill, _expPsiStrength, _expMelee;
 	int improveStat(int exp) const;
+	static void improveStatLimits(int exp, int& min, int& max);
 	int _motionPoints;
 	int _kills;
 	int _faceDirection; // used only during strafeing moves
@@ -331,6 +332,8 @@ public:
 	void updateGeoscapeStats(Soldier *soldier) const;
 	/// Check if unit eligible for squaddie promotion.
 	bool postMissionProcedures(SavedGame *geoscape, UnitStats &statsDiff);
+	/// Determine potential battle improvement
+	bool currentImprovementLimits(SavedGame *geoscape, UnitStats &minImpr, UnitStats &maxImpr);
 	/// Get the sprite index for the minimap
 	int getMiniMapSpriteIndex() const;
 	/// Set the turret type. -1 is no turret.

@@ -66,16 +66,19 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	int step = 9;
 
 	_txtTimeUnits = new Text(140, 9, 8, yPos);
+	_imprTimeUnits = new Text(28, 9, 120, yPos);
 	_numTimeUnits = new Text(18, 9, 150, yPos);
 	_barTimeUnits = new Bar(150, 5, 170, yPos + 1);
 	yPos += step;
 
 	_txtEnergy = new Text(140, 9, 8, yPos);
+	_imprEnergy = new Text(28, 9, 120, yPos);
 	_numEnergy = new Text(18, 9, 150, yPos);
 	_barEnergy = new Bar(150, 5, 170, yPos + 1);
 	yPos += step;
 
 	_txtHealth = new Text(140, 9, 8, yPos);
+	_imprHealth = new Text(28, 9, 120, yPos);
 	_numHealth = new Text(18, 9, 150, yPos);
 	_barHealth = new Bar(150, 5, 170, yPos + 1);
 	yPos += step;
@@ -86,46 +89,55 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	yPos += step;
 
 	_txtBravery = new Text(140, 9, 8, yPos);
+	_imprBravery = new Text(28, 9, 120, yPos);
 	_numBravery = new Text(18, 9, 150, yPos);
 	_barBravery = new Bar(150, 5, 170, yPos + 1);
 	yPos += step;
 
 	_txtMorale = new Text(140, 9, 8, yPos);
+	_imprMorale = new Text(28, 9, 120, yPos);
 	_numMorale = new Text(18, 9, 150, yPos);
 	_barMorale = new Bar(150, 5, 170, yPos + 1);
 	yPos += step;
 
 	_txtReactions = new Text(140, 9, 8, yPos);
+	_imprReactions = new Text(28, 9, 120, yPos);
 	_numReactions = new Text(18, 9, 150, yPos);
 	_barReactions = new Bar(150, 5, 170, yPos + 1);
 	yPos += step;
 
 	_txtFiring = new Text(140, 9, 8, yPos);
+	_imprFiring = new Text(28, 9, 120, yPos);
 	_numFiring = new Text(18, 9, 150, yPos);
 	_barFiring = new Bar(150, 5, 170, yPos + 1);
 	yPos += step;
 
 	_txtThrowing = new Text(140, 9, 8, yPos);
+	_imprThrowing = new Text(28, 9, 120, yPos);
 	_numThrowing = new Text(18, 9, 150, yPos);
 	_barThrowing = new Bar(150, 5, 170, yPos + 1);
 	yPos += step;
 
 	_txtMelee = new Text(140, 9, 8, yPos);
+	_imprMelee = new Text(140, 9, 8, yPos);
 	_numMelee = new Text(18, 9, 150, yPos);
 	_barMelee = new Bar(150, 5, 170, yPos + 1);
 	yPos += step;
 
 	_txtStrength = new Text(140, 9, 8, yPos);
+	_imprStrength = new Text(28, 9, 120, yPos);
 	_numStrength = new Text(18, 9, 150, yPos);
 	_barStrength = new Bar(150, 5, 170, yPos + 1);
 	yPos += step;
 
 	_txtPsiStrength = new Text(140, 9, 8, yPos);
+	_imprPsiStrength = new Text(18, 9, 120, yPos);
 	_numPsiStrength = new Text(18, 9, 150, yPos);
 	_barPsiStrength = new Bar(150, 5, 170, yPos + 1);
 	yPos += step;
 
 	_txtPsiSkill = new Text(140, 9, 8, yPos);
+	_imprPsiSkill = new Text(28, 9, 120, yPos);
 	_numPsiSkill = new Text(18, 9, 150, yPos);
 	_barPsiSkill = new Bar(150, 5, 170, yPos + 1);
 	yPos += step;
@@ -168,14 +180,17 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	add(_txtName, "textName", "stats", 0);
 
 	add(_txtTimeUnits);
+	add(_imprTimeUnits);
 	add(_numTimeUnits);
 	add(_barTimeUnits, "barTUs", "stats", 0);
 
 	add(_txtEnergy);
+	add(_imprEnergy);
 	add(_numEnergy);
 	add(_barEnergy, "barEnergy", "stats", 0);
 
 	add(_txtHealth);
+	add(_imprHealth);
 	add(_numHealth);
 	add(_barHealth, "barHealth", "stats", 0);
 
@@ -184,38 +199,47 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	add(_barFatalWounds, "barWounds", "stats", 0);
 
 	add(_txtBravery);
+	add(_imprBravery);
 	add(_numBravery);
 	add(_barBravery, "barBravery", "stats", 0);
 
 	add(_txtMorale);
+	add(_imprMorale);
 	add(_numMorale);
 	add(_barMorale, "barMorale", "stats", 0);
 
 	add(_txtReactions);
+	add(_imprReactions);
 	add(_numReactions);
 	add(_barReactions, "barReactions", "stats", 0);
 
 	add(_txtFiring);
+	add(_imprFiring);
 	add(_numFiring);
 	add(_barFiring, "barFiring", "stats", 0);
 
 	add(_txtThrowing);
+	add(_imprThrowing);
 	add(_numThrowing);
 	add(_barThrowing, "barThrowing", "stats", 0);
 
 	add(_txtMelee);
+	add(_imprMelee);
 	add(_numMelee);
 	add(_barMelee, "barMelee", "stats", 0);
 
 	add(_txtStrength);
+	add(_imprStrength);
 	add(_numStrength);
 	add(_barStrength, "barStrength", "stats", 0);
 
 	add(_txtPsiStrength);
+	add(_imprPsiStrength);
 	add(_numPsiStrength);
 	add(_barPsiStrength, "barPsiStrength", "stats", 0);
 
 	add(_txtPsiSkill);
+	add(_imprPsiSkill);
 	add(_numPsiSkill);
 	add(_barPsiSkill, "barPsiSkill", "stats", 0);
 
@@ -265,6 +289,9 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	_txtTimeUnits->setHighContrast(true);
 	_txtTimeUnits->setText(tr("STR_TIME_UNITS"));
 
+	_imprTimeUnits->setColor(color2);
+	_imprTimeUnits->setHighContrast(true);
+
 	_numTimeUnits->setColor(color2);
 	_numTimeUnits->setHighContrast(true);
 
@@ -274,6 +301,9 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	_txtEnergy->setHighContrast(true);
 	_txtEnergy->setText(tr("STR_ENERGY"));
 
+	_imprEnergy->setColor(color2);
+	_imprEnergy->setHighContrast(true);
+
 	_numEnergy->setColor(color2);
 	_numEnergy->setHighContrast(true);
 
@@ -282,6 +312,9 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	_txtHealth->setColor(color);
 	_txtHealth->setHighContrast(true);
 	_txtHealth->setText(tr("STR_HEALTH"));
+
+	_imprHealth->setColor(color2);
+	_imprHealth->setHighContrast(true);
 
 	_numHealth->setColor(color2);
 	_numHealth->setHighContrast(true);
@@ -301,6 +334,9 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	_txtBravery->setHighContrast(true);
 	_txtBravery->setText(tr("STR_BRAVERY"));
 
+	_imprBravery->setColor(color2);
+	_imprBravery->setHighContrast(true);
+
 	_numBravery->setColor(color2);
 	_numBravery->setHighContrast(true);
 
@@ -309,6 +345,9 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	_txtMorale->setColor(color);
 	_txtMorale->setHighContrast(true);
 	_txtMorale->setText(tr("STR_MORALE"));
+
+	_imprMorale->setColor(color2);
+	_imprMorale->setHighContrast(true);
 
 	_numMorale->setColor(color2);
 	_numMorale->setHighContrast(true);
@@ -319,6 +358,9 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	_txtReactions->setHighContrast(true);
 	_txtReactions->setText(tr("STR_REACTIONS"));
 
+	_imprReactions->setColor(color2);
+	_imprReactions->setHighContrast(true);
+
 	_numReactions->setColor(color2);
 	_numReactions->setHighContrast(true);
 
@@ -327,6 +369,9 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	_txtFiring->setColor(color);
 	_txtFiring->setHighContrast(true);
 	_txtFiring->setText(tr("STR_FIRING_ACCURACY"));
+
+	_imprFiring->setColor(color2);
+	_imprFiring->setHighContrast(true);
 
 	_numFiring->setColor(color2);
 	_numFiring->setHighContrast(true);
@@ -337,6 +382,9 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	_txtThrowing->setHighContrast(true);
 	_txtThrowing->setText(tr("STR_THROWING_ACCURACY"));
 
+	_imprThrowing->setColor(color2);
+	_imprThrowing->setHighContrast(true);
+
 	_numThrowing->setColor(color2);
 	_numThrowing->setHighContrast(true);
 
@@ -345,6 +393,9 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	_txtMelee->setColor(color);
 	_txtMelee->setHighContrast(true);
 	_txtMelee->setText(tr("STR_MELEE_ACCURACY"));
+
+	_imprMelee->setColor(color2);
+	_imprMelee->setHighContrast(true);
 
 	_numMelee->setColor(color2);
 	_numMelee->setHighContrast(true);
@@ -355,6 +406,9 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	_txtStrength->setHighContrast(true);
 	_txtStrength->setText(tr("STR_STRENGTH"));
 
+	_imprStrength->setColor(color2);
+	_imprStrength->setHighContrast(true);
+
 	_numStrength->setColor(color2);
 	_numStrength->setHighContrast(true);
 
@@ -364,6 +418,9 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	_txtPsiStrength->setHighContrast(true);
 	_txtPsiStrength->setText(tr("STR_PSIONIC_STRENGTH"));
 
+	_imprPsiStrength->setColor(color2);
+	_imprPsiStrength->setHighContrast(true);
+
 	_numPsiStrength->setColor(color2);
 	_numPsiStrength->setHighContrast(true);
 
@@ -372,6 +429,9 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	_txtPsiSkill->setColor(color);
 	_txtPsiSkill->setHighContrast(true);
 	_txtPsiSkill->setText(tr("STR_PSIONIC_SKILL"));
+
+	_imprPsiSkill->setColor(color2);
+	_imprPsiSkill->setHighContrast(true);
 
 	_numPsiSkill->setColor(color2);
 	_numPsiSkill->setHighContrast(true);
@@ -451,10 +511,6 @@ void UnitInfoState::init()
 {
 	State::init();
 	std::ostringstream ss;
-	ss << _unit->getTimeUnits();
-	_numTimeUnits->setText(ss.str());
-	_barTimeUnits->setMax(_unit->getBaseStats()->tu);
-	_barTimeUnits->setValue(_unit->getTimeUnits());
 
 	ss.str("");
 	// aliens have their rank in their "name", soldiers don't
@@ -467,12 +523,38 @@ void UnitInfoState::init()
 	_txtName->setBig();
 	_txtName->setText(ss.str());
 
+	UnitStats minImpr, maxImpr;
+	if (_unit->getType() == "SOLDIER")
+	{
+		_unit->currentImprovementLimits(_battleGame->getGeoscapeSave(), minImpr, maxImpr);
+	}
+
+	auto setImprovementText = [&](Text* txt, int UnitStats::*mptr) {
+		bool improved = maxImpr.*mptr != 0;
+		if (improved)
+		{
+			ss.str("");
+			ss << "+" << minImpr.*mptr << "-" << maxImpr.*mptr;
+			txt->setText(ss.str());
+		}
+		txt->setVisible(improved);
+	};
+
+	setImprovementText(_imprTimeUnits, &UnitStats::tu);
+	ss.str("");
+	ss << _unit->getTimeUnits();
+	_numTimeUnits->setText(ss.str());
+	_barTimeUnits->setMax(_unit->getBaseStats()->tu);
+	_barTimeUnits->setValue(_unit->getTimeUnits());
+
+	setImprovementText(_imprEnergy, &UnitStats::stamina);
 	ss.str("");
 	ss << _unit->getEnergy();
 	_numEnergy->setText(ss.str());
 	_barEnergy->setMax(_unit->getBaseStats()->stamina);
 	_barEnergy->setValue(_unit->getEnergy());
 
+	setImprovementText(_imprHealth, &UnitStats::health);
 	ss.str("");
 	ss << _unit->getHealth();
 	_numHealth->setText(ss.str());
@@ -486,6 +568,7 @@ void UnitInfoState::init()
 	_barFatalWounds->setMax(_unit->getFatalWounds());
 	_barFatalWounds->setValue(_unit->getFatalWounds());
 
+	setImprovementText(_imprBravery, &UnitStats::bravery);
 	ss.str("");
 	ss << _unit->getBaseStats()->bravery;
 	_numBravery->setText(ss.str());
@@ -498,6 +581,7 @@ void UnitInfoState::init()
 	_barMorale->setMax(100);
 	_barMorale->setValue(_unit->getMorale());
 
+	setImprovementText(_imprReactions, &UnitStats::reactions);
 	ss.str("");
 	ss << _unit->getBaseStats()->reactions;
 	_numReactions->setText(ss.str());
@@ -508,24 +592,28 @@ void UnitInfoState::init()
 	// the actual wound modifier is dependent on the weapon being used.
 	// This is just the purely soldier-dependent modifier, closer to
 	// the correct behavior than the original game is.
+	setImprovementText(_imprFiring, &UnitStats::firing);
 	ss.str("");
 	ss << (_unit->getBaseStats()->firing * _unit->getAccuracyModifier() / 100);
 	_numFiring->setText(ss.str());
 	_barFiring->setMax(_unit->getBaseStats()->firing);
 	_barFiring->setValue(_unit->getBaseStats()->firing * _unit->getAccuracyModifier() / 100);
 
+	setImprovementText(_imprThrowing, &UnitStats::throwing);
 	ss.str("");
 	ss << ((_unit->getBaseStats()->throwing * _unit->getAccuracyModifier()) / 100);
 	_numThrowing->setText(ss.str());
 	_barThrowing->setMax(_unit->getBaseStats()->throwing);
 	_barThrowing->setValue((_unit->getBaseStats()->throwing * _unit->getAccuracyModifier()) / 100);
 
+	setImprovementText(_imprMelee, &UnitStats::melee);
 	ss.str("");
 	ss << ((_unit->getBaseStats()->melee * _unit->getAccuracyModifier()) / 100);
 	_numMelee->setText(ss.str());
 	_barMelee->setMax(_unit->getBaseStats()->melee);
 	_barMelee->setValue((_unit->getBaseStats()->melee * _unit->getAccuracyModifier()) / 100);
 
+	setImprovementText(_imprStrength, &UnitStats::strength);
 	ss.str("");
 	ss << _unit->getBaseStats()->strength;
 	_numStrength->setText(ss.str());
@@ -534,6 +622,7 @@ void UnitInfoState::init()
 
 	if (_unit->getBaseStats()->psiSkill > 0 || (Options::psiStrengthEval && _game->getSavedGame()->isResearched(_game->getMod()->getPsiRequirements())))
 	{
+		setImprovementText(_imprPsiStrength, &UnitStats::psiStrength);
 		ss.str("");
 		ss << _unit->getBaseStats()->psiStrength;
 		_numPsiStrength->setText(ss.str());
@@ -553,6 +642,7 @@ void UnitInfoState::init()
 
 	if (_unit->getBaseStats()->psiSkill > 0)
 	{
+		setImprovementText(_imprPsiSkill, &UnitStats::psiSkill);
 		ss.str("");
 		ss << _unit->getBaseStats()->psiSkill;
 		_numPsiSkill->setText(ss.str());
