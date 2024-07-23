@@ -64,7 +64,7 @@ namespace OpenXcom
 		{
 			_status = "STR_REARMING";
 		}
-		else if (_fuel < _rules->getMaxFuel() && !_lowFuel) // FIXME out of fuel in base
+		else if (_fuel < _rules->getMaxFuel()) // FIXME out of fuel in base
 		{
 			_status = "STR_REFUELLING";
 		}
