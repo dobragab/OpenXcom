@@ -17,6 +17,7 @@
  * along with OpenXcom.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "ConfirmLandingState.h"
+
 #include <sstream>
 #include "../Engine/Game.h"
 #include "../Mod/Mod.h"
@@ -37,6 +38,7 @@
 #include "../Engine/Exception.h"
 #include "../Engine/Options.h"
 #include "../Mod/AlienDeployment.h"
+#include "GeoscapeCraftState.h"
 
 namespace OpenXcom
 {
@@ -45,10 +47,11 @@ namespace OpenXcom
  * Initializes all the elements in the Confirm Landing window.
  * @param game Pointer to the core game.
  * @param craft Pointer to the craft to confirm.
+ * @param globe Pointer to the globe.
  * @param texture Texture of the landing site.
  * @param shade Shade of the landing site.
  */
-ConfirmLandingState::ConfirmLandingState(Craft *craft, Texture *texture, int shade) : _craft(craft), _texture(texture), _shade(shade)
+ConfirmLandingState::ConfirmLandingState(Craft *craft, Globe* globe, Texture *texture, int shade) : _craft(craft), _globe(globe), _texture(texture), _shade(shade)
 {
 	_screen = false;
 
@@ -167,8 +170,8 @@ void ConfirmLandingState::btnYesClick(Action *)
  */
 void ConfirmLandingState::btnNoClick(Action *)
 {
-	_craft->returnToBase();
 	_game->popState();
+	_game->pushState(new GeoscapeCraftState(_craft, _globe, 0));
 }
 
 }

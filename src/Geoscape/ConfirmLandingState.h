@@ -27,6 +27,7 @@ class Text;
 class TextButton;
 class Craft;
 class Texture;
+class Globe;
 
 /**
  * Window that allows the player
@@ -36,6 +37,7 @@ class ConfirmLandingState : public State
 {
 private:
 	Craft *_craft;
+	Globe* _globe;
 	Window *_window;
 	Texture *_texture;
 	int _shade;
@@ -43,7 +45,7 @@ private:
 	TextButton *_btnYes, *_btnNo;
 public:
 	/// Creates the Confirm Landing state.
-	ConfirmLandingState(Craft *craft, Texture *texture, int shade);
+	ConfirmLandingState(Craft *craft, Globe* globe, Texture *texture, int shade);
 	/// Cleans up the Confirm Landing state.
 	~ConfirmLandingState();
 	/// initialize the state, make a sanity check.

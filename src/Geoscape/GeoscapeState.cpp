@@ -917,7 +917,7 @@ void GeoscapeState::time5Seconds()
 								int texture, shade;
 								_globe->getPolygonTextureAndShade(u->getLongitude(), u->getLatitude(), &texture, &shade);
 								timerReset();
-								popup(new ConfirmLandingState(*j, _game->getMod()->getGlobe()->getTexture(texture), shade));
+								popup(new ConfirmLandingState(*j, _globe, _game->getMod()->getGlobe()->getTexture(texture), shade));
 							}
 						}
 						else if (u->getStatus() != Ufo::LANDED)
@@ -944,7 +944,7 @@ void GeoscapeState::time5Seconds()
 							texture = m->getTexture();
 						}
 						timerReset();
-						popup(new ConfirmLandingState(*j, _game->getMod()->getGlobe()->getTexture(texture), shade));
+						popup(new ConfirmLandingState(*j, _globe, _game->getMod()->getGlobe()->getTexture(texture), shade));
 					}
 					else
 					{
@@ -960,7 +960,7 @@ void GeoscapeState::time5Seconds()
 							int texture, shade;
 							_globe->getPolygonTextureAndShade(b->getLongitude(), b->getLatitude(), &texture, &shade);
 							timerReset();
-							popup(new ConfirmLandingState(*j, _game->getMod()->getGlobe()->getTexture(texture), shade));
+							popup(new ConfirmLandingState(*j, _globe, _game->getMod()->getGlobe()->getTexture(texture), shade));
 						}
 						else
 						{
