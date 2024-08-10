@@ -237,7 +237,7 @@ GeoscapeCraftState::GeoscapeCraftState(Craft *craft, Globe *globe, Waypoint *way
 		_btnCancel->setText(tr("STR_GO_TO_LAST_KNOWN_UFO_POSITION"));
 	}
 
-	if (_craft->getLowFuel() || _craft->getMissionComplete())
+	if (_craft->getLowFuel() || (_craft->getMissionComplete() && !Options::craftLaunchAlways))
 	{
 		_btnBase->setVisible(false);
 		_btnTarget->setVisible(false);

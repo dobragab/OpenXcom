@@ -184,7 +184,7 @@ void InterceptState::btnGotoBaseClick(Action *)
 void InterceptState::lstCraftsLeftClick(Action *)
 {
 	Craft* c = _crafts[_lstCrafts->getSelectedRow()];
-	if (c->getStatus() == "STR_READY" || ((c->getStatus() == "STR_OUT" || Options::craftLaunchAlways) && !c->getLowFuel() && !c->getMissionComplete()))
+	if (c->getStatus() == "STR_READY" || ((c->getStatus() == "STR_OUT" && !c->getMissionComplete() || Options::craftLaunchAlways) && !c->getLowFuel()))
 	{
 		_game->popState();
 		if (_target == 0)
