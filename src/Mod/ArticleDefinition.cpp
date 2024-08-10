@@ -300,5 +300,6 @@ namespace OpenXcom
 		ArticleDefinition::load(node, listOrder);
 		weapon = node["weapon"].as<std::string>(weapon);
 		text = node["text"].as<std::string>(text);
+		image_id = node["image_id"].as<std::string>(image_id);
 	}
 }

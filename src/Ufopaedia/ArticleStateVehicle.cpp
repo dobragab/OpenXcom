@@ -57,7 +57,10 @@ namespace OpenXcom
 		add(_lstStats);
 
 		// Set up objects
-		_game->getMod()->getSurface("BACK10.SCR")->blit(_bg);
+		std::string bg_image = defs->image_id;
+		if (bg_image.empty())
+			bg_image = "BACK10.SCR";
+		_game->getMod()->getSurface(bg_image)->blit(_bg);
 		_btnOk->setColor(Palette::blockOffset(5));
 		_btnPrev->setColor(Palette::blockOffset(5));
 		_btnNext->setColor(Palette::blockOffset(5));

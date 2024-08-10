@@ -258,6 +258,7 @@ namespace OpenXcom
 
 		std::string text;
 		std::string weapon;
+		std::string image_id;
 	};
 
 }
