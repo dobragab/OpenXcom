@@ -80,24 +80,22 @@ ActionMenuState::ActionMenuState(BattleAction *action, int x, int y) : _action(a
 
 	if (weapon->getBattleType() == BT_FIREARM)
 	{
+		if (weapon->getAccuracyAuto() != 0)
+		{
+			addItem(BA_AUTOSHOT, "STR_AUTO_SHOT", &id);
+		}
+		if (weapon->getAccuracySnap() != 0)
+		{
+			addItem(BA_SNAPSHOT, "STR_SNAP_SHOT", &id);
+		}
+
 		if (weapon->getWaypoints() != 0 || (_action->weapon->getAmmoItem() && _action->weapon->getAmmoItem()->getRules()->getWaypoints() != 0))
 		{
 			addItem(BA_LAUNCH, "STR_LAUNCH_MISSILE", &id);
 		}
-		else
+		else if (weapon->getAccuracyAimed() != 0)
 		{
-			if (weapon->getAccuracyAuto() != 0)
-			{
-				addItem(BA_AUTOSHOT, "STR_AUTO_SHOT", &id);
-			}
-			if (weapon->getAccuracySnap() != 0)
-			{
-				addItem(BA_SNAPSHOT, "STR_SNAP_SHOT", &id);
-			}
-			if (weapon->getAccuracyAimed() != 0)
-			{
-				addItem(BA_AIMEDSHOT, "STR_AIMED_SHOT", &id);
-			}
+			addItem(BA_AIMEDSHOT, "STR_AIMED_SHOT", &id);
 		}
 	}
 
