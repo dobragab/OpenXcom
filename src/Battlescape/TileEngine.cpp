@@ -399,7 +399,7 @@ bool TileEngine::visible(BattleUnit *currentUnit, Tile *tile)
 	}
 
 	// aliens can see in the dark, xcom can see at a distance of 9 or less, further if there's enough light.
-	if ((currentUnit->getFaction() == FACTION_PLAYER &&
+	if ((currentUnit->getOriginalFaction() == FACTION_PLAYER &&
 		distance(currentUnit->getPosition(), tile->getPosition()) > 9 &&
 		tile->getShade() > MAX_DARKNESS_TO_SEE_UNITS) ||
 		distance(currentUnit->getPosition(), tile->getPosition()) > MAX_VIEW_DISTANCE)
