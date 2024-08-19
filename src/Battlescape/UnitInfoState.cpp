@@ -119,7 +119,7 @@ UnitInfoState::UnitInfoState(BattleUnit *unit, BattlescapeState *parent, bool fr
 	yPos += step;
 
 	_txtMelee = new Text(140, 9, 8, yPos);
-	_imprMelee = new Text(140, 9, 8, yPos);
+	_imprMelee = new Text(28, 9, 120, yPos);
 	_numMelee = new Text(18, 9, 150, yPos);
 	_barMelee = new Bar(150, 5, 170, yPos + 1);
 	yPos += step;

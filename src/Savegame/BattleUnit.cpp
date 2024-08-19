@@ -2226,6 +2226,7 @@ bool BattleUnit::postMissionProcedures(SavedGame *geoscape, UnitStats &statsDiff
 		if (_expBravery > RNG::generate(0,10)) stats->bravery += 10;
 	}
 	improveStat(&UnitStats::bravery);
+	improveStat(&UnitStats::reactions);
 	improveStat(&UnitStats::firing);
 	improveStat(&UnitStats::melee);
 	improveStat(&UnitStats::throwing);
