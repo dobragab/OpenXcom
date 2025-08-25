@@ -75,6 +75,8 @@ public:
 	bool isOverlappingOrOverflowing();
 	/// Saves the base to YAML.
 	YAML::Node save() const;
+	/// Gets the ruleset.
+	const Mod* getMod() const;
 	/// Gets the base's type.
 	std::string getType() const;
 	/// Gets the base's name.

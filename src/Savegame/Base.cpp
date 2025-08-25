@@ -326,6 +326,15 @@ YAML::Node Base::save() const
 }
 
 /**
+ * Returns the global ruleset.
+ * @return mod.
+ */
+const Mod* Base::getMod() const
+{
+	return _mod;
+}
+
+/**
  * Returns the base's unique type used for
  * savegame purposes.
  * @return ID.

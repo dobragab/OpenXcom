@@ -168,18 +168,25 @@ void ManufactureStartState::btnCancelClick(Action *)
  */
 void ManufactureStartState::btnStartClick(Action *)
 {
-	if (_item->getCategory() == "STR_CRAFT" && _base->getAvailableHangars() - _base->getUsedHangars() <= 0)
+	if (_item->getCategory() == "STR_CRAFT")
 	{
-		_game->pushState(new ErrorMessageState(tr("STR_NO_FREE_HANGARS_FOR_CRAFT_PRODUCTION"), _palette, _game->getMod()->getInterface("basescape")->getElement("errorMessage")->color, "BACK17.SCR", _game->getMod()->getInterface("basescape")->getElement("errorPalette")->color));
+		int freeHangars = (_base->getAvailableHangars() - _base->getUsedHangars()) > 0;
+		const Mod* mod = _base->getMod();
+		bool reusesCraft = std::any_of(_item->getRequiredItems().begin(), _item->getRequiredItems().end(), [&](const auto& material) {
+			return mod->getCraft(material.first) != nullptr;
+		});
+		if (!freeHangars && !reusesCraft)
+		{
+			_game->pushState(new ErrorMessageState(tr("STR_NO_FREE_HANGARS_FOR_CRAFT_PRODUCTION"), _palette, _game->getMod()->getInterface("basescape")->getElement("errorMessage")->color, "BACK17.SCR", _game->getMod()->getInterface("basescape")->getElement("errorPalette")->color));
+			return;
+		}
 	}
 	else if (_item->getRequiredSpace() > _base->getFreeWorkshops())
 	{
 		_game->pushState(new ErrorMessageState(tr("STR_NOT_ENOUGH_WORK_SPACE"), _palette, _game->getMod()->getInterface("basescape")->getElement("errorMessage")->color, "BACK17.SCR", _game->getMod()->getInterface("basescape")->getElement("errorPalette")->color));
+		return;
 	}
-	else
-	{
-		_game->pushState(new ManufactureInfoState(_base, _item));
-	}
+	_game->pushState(new ManufactureInfoState(_base, _item));
 }
 
 }
